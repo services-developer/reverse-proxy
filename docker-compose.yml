@@ -1,0 +1,19 @@
+version: "3.7"
+services:
+  proxy:
+    build: .
+    container_name: reverse-proxy
+    environment:
+      - TZ=Europe/Moscow
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./certs:/etc/nginx/certs
+    networks:
+      - default
+
+networks:
+  default:
+    name: reverse-proxy
